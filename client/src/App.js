@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Picker from 'react-giphy-picker';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      gifs: [],
+    };
+  }
+  log(gif) {
+    console.log(gif.fixed_width.url);
+    var gifArray = this.state.gifs;
+    gifArray.push(gif.fixed_width.url);
+    this.setState({ gifs: gifArray });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Picker onSelected={this.log.bind(this)} />
+        <h1>
+          {this.state.gifs}
+        </h1>
       </div>
     );
   }
